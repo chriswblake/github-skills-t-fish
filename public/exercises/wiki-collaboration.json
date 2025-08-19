@@ -1,0 +1,9 @@
+{
+  "slug": "wiki-collaboration",
+  "status": "tentative",
+  "name": "Wiki Collaboration",
+  "icon": "book",
+  "description": "Create collaborative documentation using GitHub Wikis.",
+  "repositoryUrl": "https://github.com/skills/wiki-collaboration",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/22"
+}

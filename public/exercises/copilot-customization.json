@@ -1,0 +1,9 @@
+{
+  "slug": "copilot-customization",
+  "status": "scheduled",
+  "name": "Copilot Customization",
+  "icon": "gear",
+  "description": "Customize GitHub Copilot for your coding style.",
+  "repositoryUrl": "https://github.com/skills/copilot-customization",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/43"
+}

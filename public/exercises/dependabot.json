@@ -1,0 +1,9 @@
+{
+  "slug": "dependabot",
+  "status": "active",
+  "name": "Dependabot",
+  "icon": "dependabot",
+  "description": "Automate dependency updates with Dependabot.",
+  "repositoryUrl": "https://github.com/skills/dependabot",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/12"
+}

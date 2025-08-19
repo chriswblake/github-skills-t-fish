@@ -1,0 +1,9 @@
+{
+  "slug": "deployment-strategies",
+  "status": "active",
+  "name": "Deployment Strategies",
+  "icon": "rocket",
+  "description": "Implement safe and effective deployment workflows.",
+  "repositoryUrl": "https://github.com/skills/deployment-strategies",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/44"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "migration-tools",
+  "status": "tentative",
+  "name": "Migration Tools",
+  "icon": "sync",
+  "description": "Migrate projects to GitHub from other platforms.",
+  "repositoryUrl": "https://github.com/skills/migration-tools",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/47"
+}

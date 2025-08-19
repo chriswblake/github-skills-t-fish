@@ -1,0 +1,9 @@
+{
+  "slug": "git-basics",
+  "status": "active",
+  "name": "Git Basics",
+  "icon": "git-branch",
+  "description": "Master fundamental Git commands for version control.",
+  "repositoryUrl": "https://github.com/skills/git-basics",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/2"
+}

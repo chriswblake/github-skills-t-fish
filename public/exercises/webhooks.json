@@ -1,0 +1,9 @@
+{
+  "slug": "webhooks",
+  "status": "scheduled",
+  "name": "GitHub Webhooks",
+  "icon": "webhook",
+  "description": "Set up event-driven integrations with GitHub Webhooks.",
+  "repositoryUrl": "https://github.com/skills/webhooks",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/34"
+}

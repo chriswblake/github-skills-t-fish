@@ -1,0 +1,9 @@
+{
+  "slug": "api-integration",
+  "status": "scheduled",
+  "name": "API Integration",
+  "icon": "plug",
+  "description": "Integrate with GitHub's REST and GraphQL APIs.",
+  "repositoryUrl": "https://github.com/skills/api-integration", 
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/33"
+}

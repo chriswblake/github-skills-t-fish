@@ -1,0 +1,9 @@
+{
+  "slug": "package-publishing",
+  "status": "scheduled", 
+  "name": "Package Publishing",
+  "icon": "package",
+  "description": "Publish packages to GitHub Packages and npm registries.",
+  "repositoryUrl": "https://github.com/skills/package-publishing",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/25"
+}

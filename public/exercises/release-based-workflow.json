@@ -1,0 +1,9 @@
+{
+  "slug": "release-based-workflow",
+  "status": "active",
+  "name": "Release Based Workflow",
+  "icon": "tag",
+  "description": "Manage software releases using GitHub's release features.",
+  "repositoryUrl": "https://github.com/skills/release-based-workflow",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/8"
+}

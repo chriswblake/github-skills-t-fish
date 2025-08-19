@@ -1,0 +1,9 @@
+{
+  "slug": "team-management",
+  "status": "active",
+  "name": "Team Management",
+  "icon": "people",
+  "description": "Organize teams and manage repository permissions.",
+  "repositoryUrl": "https://github.com/skills/team-management",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/41"
+}

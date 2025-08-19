@@ -1,0 +1,9 @@
+{
+  "slug": "github-issues",
+  "status": "active",
+  "name": "GitHub Issues",
+  "icon": "issue-opened",
+  "description": "Track work and manage projects using GitHub Issues.",
+  "repositoryUrl": "https://github.com/skills/github-issues",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/9"
+}

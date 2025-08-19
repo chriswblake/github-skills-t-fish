@@ -1,0 +1,9 @@
+{
+  "slug": "branch-protection",
+  "status": "scheduled",
+  "name": "Branch Protection Rules",
+  "icon": "shield-lock",
+  "description": "Protect important branches with comprehensive rulesets.",
+  "repositoryUrl": "https://github.com/skills/branch-protection",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/16"
+}

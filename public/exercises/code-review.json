@@ -1,0 +1,9 @@
+{
+  "slug": "code-review",
+  "status": "active",
+  "name": "Code Review Best Practices",
+  "icon": "eye",
+  "description": "Master effective code review techniques and workflows.",
+  "repositoryUrl": "https://github.com/skills/code-review",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/38"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "organizations",
+  "status": "scheduled",
+  "name": "GitHub Organizations",
+  "icon": "organization",
+  "description": "Manage teams and permissions in GitHub Organizations.",
+  "repositoryUrl": "https://github.com/skills/organizations",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/17"
+}

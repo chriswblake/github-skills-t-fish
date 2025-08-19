@@ -1,0 +1,9 @@
+{
+  "slug": "hello-github",
+  "status": "active",
+  "name": "Hello GitHub",
+  "icon": "mark-github",
+  "description": "Learn the basics of GitHub and create your first repository.",
+  "repositoryUrl": "https://github.com/skills/hello-github",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/1"
+}

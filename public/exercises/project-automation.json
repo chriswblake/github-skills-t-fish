@@ -1,0 +1,9 @@
+{
+  "slug": "project-automation",
+  "status": "scheduled",
+  "name": "Project Automation",
+  "icon": "workflow",
+  "description": "Automate project management with GitHub Actions.",
+  "repositoryUrl": "https://github.com/skills/project-automation",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/48"
+}

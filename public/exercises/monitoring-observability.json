@@ -1,0 +1,9 @@
+{
+  "slug": "monitoring-observability",
+  "status": "scheduled",
+  "name": "Monitoring and Observability",
+  "icon": "pulse",
+  "description": "Monitor application health and performance.",
+  "repositoryUrl": "https://github.com/skills/monitoring-observability",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/45"
+}

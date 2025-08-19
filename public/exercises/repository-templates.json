@@ -1,0 +1,9 @@
+{
+  "slug": "repository-templates",
+  "status": "scheduled",
+  "name": "Repository Templates",
+  "icon": "repo-template",
+  "description": "Create reusable repository templates for consistent project setup.",
+  "repositoryUrl": "https://github.com/skills/repository-templates",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/23"
+}

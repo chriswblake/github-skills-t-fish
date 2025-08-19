@@ -1,0 +1,9 @@
+{
+  "slug": "javascript-action",
+  "status": "active",
+  "name": "JavaScript Actions",
+  "icon": "code",
+  "description": "Create custom GitHub Actions using JavaScript.",
+  "repositoryUrl": "https://github.com/skills/javascript-action",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/27"
+}

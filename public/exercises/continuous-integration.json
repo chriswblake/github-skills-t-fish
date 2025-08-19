@@ -1,0 +1,9 @@
+{
+  "slug": "continuous-integration",
+  "status": "active",
+  "name": "Continuous Integration",
+  "icon": "check",
+  "description": "Set up automated testing and builds with CI workflows.",
+  "repositoryUrl": "https://github.com/skills/continuous-integration",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/24"
+}

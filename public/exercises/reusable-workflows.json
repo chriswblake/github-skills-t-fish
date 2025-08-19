@@ -1,0 +1,9 @@
+{
+  "slug": "reusable-workflows",
+  "status": "scheduled",
+  "name": "Reusable Workflows",
+  "icon": "workflow",
+  "description": "Share common CI/CD patterns with reusable workflows.",
+  "repositoryUrl": "https://github.com/skills/reusable-workflows",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/28"
+}

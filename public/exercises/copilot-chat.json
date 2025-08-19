@@ -1,0 +1,9 @@
+{
+  "slug": "copilot-chat",
+  "status": "active",
+  "name": "Copilot Chat",
+  "icon": "comment-discussion",
+  "description": "Use AI-powered chat assistance for coding help.",
+  "repositoryUrl": "https://github.com/skills/copilot-chat",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/29"
+}

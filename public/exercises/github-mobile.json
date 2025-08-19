@@ -1,0 +1,9 @@
+{
+  "slug": "github-mobile",
+  "status": "tentative",
+  "name": "GitHub Mobile",
+  "icon": "device-mobile",
+  "description": "Manage repositories on-the-go with GitHub Mobile.",
+  "repositoryUrl": "https://github.com/skills/github-mobile",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/32"
+}

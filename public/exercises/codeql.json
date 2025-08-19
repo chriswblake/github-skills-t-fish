@@ -1,0 +1,9 @@
+{
+  "slug": "codeql",
+  "status": "active",
+  "name": "CodeQL Analysis",
+  "icon": "search",
+  "description": "Find security vulnerabilities using CodeQL analysis.",
+  "repositoryUrl": "https://github.com/skills/codeql",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/13"
+}

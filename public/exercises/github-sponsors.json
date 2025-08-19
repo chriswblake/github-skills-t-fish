@@ -1,0 +1,9 @@
+{
+  "slug": "github-sponsors",
+  "status": "tentative",
+  "name": "GitHub Sponsors",
+  "icon": "heart",
+  "description": "Support open source projects with GitHub Sponsors.",
+  "repositoryUrl": "https://github.com/skills/github-sponsors",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/46"
+}

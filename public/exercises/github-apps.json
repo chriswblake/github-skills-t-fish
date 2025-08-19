@@ -1,0 +1,9 @@
+{
+  "slug": "github-apps",
+  "status": "tentative",
+  "name": "GitHub Apps",
+  "icon": "apps",
+  "description": "Build powerful integrations using GitHub Apps.",
+  "repositoryUrl": "https://github.com/skills/github-apps",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/35"
+}

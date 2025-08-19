@@ -1,0 +1,9 @@
+{
+  "slug": "community-standards",
+  "status": "active",
+  "name": "Community Standards",
+  "icon": "people",
+  "description": "Establish healthy community guidelines and standards.",
+  "repositoryUrl": "https://github.com/skills/community-standards",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/49"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "accessibility-testing",
+  "status": "tentative",
+  "name": "Accessibility Testing",
+  "icon": "checklist",
+  "description": "Ensure web accessibility with automated testing.",
+  "repositoryUrl": "https://github.com/skills/accessibility-testing",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/50"
+}

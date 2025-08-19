@@ -1,0 +1,9 @@
+{
+  "slug": "docker-container-action",
+  "status": "scheduled",
+  "name": "Docker Container Actions", 
+  "icon": "container",
+  "description": "Build custom GitHub Actions using Docker containers.",
+  "repositoryUrl": "https://github.com/skills/docker-container-action",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/26"
+}

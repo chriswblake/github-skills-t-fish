@@ -1,0 +1,9 @@
+{
+  "slug": "github-pages",
+  "status": "active",
+  "name": "GitHub Pages",
+  "icon": "browser", 
+  "description": "Host websites directly from your GitHub repositories.",
+  "repositoryUrl": "https://github.com/skills/github-pages",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/4"
+}

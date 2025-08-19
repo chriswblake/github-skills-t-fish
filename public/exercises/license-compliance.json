@@ -1,0 +1,9 @@
+{
+  "slug": "license-compliance",
+  "status": "scheduled",
+  "name": "License Compliance",
+  "icon": "law",
+  "description": "Manage open source licenses and compliance.",
+  "repositoryUrl": "https://github.com/skills/license-compliance",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/37"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "advanced-git",
+  "status": "scheduled",
+  "name": "Advanced Git",
+  "icon": "git-branch",
+  "description": "Master complex Git operations and workflows.",
+  "repositoryUrl": "https://github.com/skills/advanced-git",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/39"
+}

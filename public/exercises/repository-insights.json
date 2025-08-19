@@ -1,0 +1,9 @@
+{
+  "slug": "repository-insights",
+  "status": "active",
+  "name": "Repository Insights",
+  "icon": "graph",
+  "description": "Analyze project health with repository insights.",
+  "repositoryUrl": "https://github.com/skills/repository-insights",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/42"
+}

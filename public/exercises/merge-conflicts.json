@@ -1,0 +1,9 @@
+{
+  "slug": "merge-conflicts",
+  "status": "active",
+  "name": "Resolve Merge Conflicts", 
+  "icon": "git-merge",
+  "description": "Learn to identify and resolve Git merge conflicts.",
+  "repositoryUrl": "https://github.com/skills/merge-conflicts",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/6"
+}

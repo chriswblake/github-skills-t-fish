@@ -1,0 +1,9 @@
+{
+  "slug": "github-actions-intro",
+  "status": "active",
+  "name": "GitHub Actions Intro",
+  "icon": "workflow",
+  "description": "Automate your development workflow with GitHub Actions.",
+  "repositoryUrl": "https://github.com/skills/github-actions-intro",
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/7"
+}
