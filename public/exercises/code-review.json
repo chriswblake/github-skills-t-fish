@@ -5,5 +5,8 @@
   "icon": "eye",
   "description": "Master effective code review techniques and workflows.",
   "repositoryUrl": "https://github.com/skills/code-review",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/38"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/38",
+  "pathSlug": "security",
+  "dependencies": ["git-basics"],
+  "position": { "x": 400, "y": 500 }
 }
