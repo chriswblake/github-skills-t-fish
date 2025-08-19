@@ -76,19 +76,8 @@ export function SkillNode({
   // Get the appropriate icon component with fallback
   const IconComponent = iconMap[exercise.icon] || Octicons.MarkGithubIcon;
   
-  // Calculate base opacity based on status
-  const getStatusOpacity = (status: string) => {
-    switch (status) {
-      case 'active': return 1.0;
-      case 'scheduled': return 0.7;
-      case 'tentative': return 0.4;
-      default: return 1.0;
-    }
-  };
-
-  // Combine status opacity with filter visibility
-  const statusOpacity = getStatusOpacity(exercise.status);
-  const finalOpacity = statusOpacity * visibility;
+  // Use only filter-based visibility (no automatic status dimming)
+  const finalOpacity = visibility;
   const nodeRadius = isHighlighted || isSelected ? 34 : 28;
   const ringRadius = nodeRadius + 6;
   
