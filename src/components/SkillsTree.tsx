@@ -110,7 +110,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
       />
 
       {/* Search Bar - positioned below header */}
-      <div className="absolute left-64 right-0 z-40 bg-background/95 backdrop-blur border-b border-border" style={{ top: '89px' }}>
+      <div className="absolute left-64 right-0 z-40 bg-background/95 backdrop-blur border-b border-border">
         <div className="px-6 py-3">
           <SearchBar
             searchTerm={searchTerm}
