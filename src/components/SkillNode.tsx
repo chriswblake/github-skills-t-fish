@@ -85,8 +85,8 @@ export function SkillNode({
   };
 
   const opacity = getOpacity(exercise.status);
-  const nodeRadius = isHighlighted || isSelected ? 32 : 28;
-  const ringRadius = nodeRadius + 4;
+  const nodeRadius = isHighlighted || isSelected ? 34 : 28;
+  const ringRadius = nodeRadius + 6;
 
   return (
     <g
@@ -105,6 +105,9 @@ export function SkillNode({
           stroke={path.color}
           strokeWidth="2"
           opacity={isSelected ? 0.8 : 0.5}
+          style={{
+            transition: 'r 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
         />
       )}
       
@@ -117,7 +120,8 @@ export function SkillNode({
         style={{
           filter: isHighlighted 
             ? `drop-shadow(0 0 12px ${path.color})` 
-            : `drop-shadow(0 2px 8px rgba(0,0,0,0.3))`
+            : `drop-shadow(0 2px 8px rgba(0,0,0,0.3))`,
+          transition: 'r 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease'
         }}
       />
       
