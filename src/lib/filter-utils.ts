@@ -57,12 +57,14 @@ export function calculateExerciseVisibility(
     });
   }
 
-  // Check status filter
+  // Check status filter (handle capitalized filter values)
   if (filters.statuses.length > 0) {
     activeFilters.push({
       category: 'status',
       values: filters.statuses,
-      hasMatch: filters.statuses.includes(exercise.status)
+      hasMatch: filters.statuses.some(status => 
+        status.toLowerCase() === exercise.status.toLowerCase()
+      )
     });
   }
 

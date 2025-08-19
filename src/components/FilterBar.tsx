@@ -137,11 +137,20 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
       statuses.add(exercise.status);
     });
 
+    // Define proper difficulty order
+    const difficultyOrder = ['Beginner', 'Intermediate', 'Advanced'];
+    const sortedDifficulties = difficultyOrder.filter(d => difficulties.has(d));
+
+    // Capitalize status options
+    const capitalizedStatuses = Array.from(statuses).map(status => 
+      status.charAt(0).toUpperCase() + status.slice(1)
+    ).sort();
+
     return {
       paths: pathNames,
       products: Array.from(products).sort(),
-      difficulties: Array.from(difficulties).sort(),
-      statuses: Array.from(statuses).sort()
+      difficulties: sortedDifficulties,
+      statuses: capitalizedStatuses
     };
   }, [exercises, paths]);
 
@@ -177,7 +186,7 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
 
   return (
     <Card className="fixed left-0 top-20 z-40 w-fit min-w-64 max-w-80 h-[calc(100vh-5rem)] bg-card border-r border-border rounded-none border-l-0 border-t-0 border-b-0">
-      <div className="flex items-center justify-between p-4 border-b border-border">
+      <div className="flex items-center justify-between p-3 border-b border-border">
         <div className="flex items-center gap-2">
           <h2 className="font-semibold text-foreground">Filters</h2>
           {totalActiveFilters > 0 && (
