@@ -34,9 +34,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* Header - adjusted to account for filter bar */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur border-b border-border">
-        <div className="container mx-auto px-6 py-4">
+        <div className="pl-80 pr-6 py-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-foreground">GitHub Skills Roadmap</h1>
@@ -56,8 +56,6 @@ function App() {
       <main className="relative">
         <SkillsTree exercises={exercises} paths={paths} />
       </main>
-
-
 
       <Toaster />
     </div>

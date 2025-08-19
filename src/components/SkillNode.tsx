@@ -9,6 +9,7 @@ interface SkillNodeProps {
   onClick: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  visibility?: number; // 0 = fully dimmed, 1 = fully visible
 }
 
 // Map exercise icons to Octicon components with fallbacks
@@ -67,15 +68,16 @@ export function SkillNode({
   isHighlighted, 
   onClick, 
   onMouseEnter, 
-  onMouseLeave 
+  onMouseLeave,
+  visibility = 1
 }: SkillNodeProps) {
   const { exercise, path, position } = node;
   
   // Get the appropriate icon component with fallback
   const IconComponent = iconMap[exercise.icon] || Octicons.MarkGithubIcon;
   
-  // Calculate opacity based on status
-  const getOpacity = (status: string) => {
+  // Calculate base opacity based on status
+  const getStatusOpacity = (status: string) => {
     switch (status) {
       case 'active': return 1.0;
       case 'scheduled': return 0.7;
@@ -84,7 +86,9 @@ export function SkillNode({
     }
   };
 
-  const opacity = getOpacity(exercise.status);
+  // Combine status opacity with filter visibility
+  const statusOpacity = getStatusOpacity(exercise.status);
+  const finalOpacity = statusOpacity * visibility;
   const nodeRadius = isHighlighted || isSelected ? 34 : 28;
   const ringRadius = nodeRadius + 6;
   
@@ -95,7 +99,7 @@ export function SkillNode({
     <g
       transform={`translate(${position.x}, ${position.y})`}
       className="skill-node"
-      style={{ opacity }}
+      style={{ opacity: finalOpacity }}
     >
       {/* Selection ring */}
       {(isSelected || isHighlighted) && (

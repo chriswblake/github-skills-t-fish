@@ -2,7 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { SkillNode } from './SkillNode';
 import { SkillPath } from './SkillPath';
 import { ExerciseDetails } from './ExerciseDetails';
+import { FilterBar, type FilterState } from './FilterBar';
 import { createSkillTreeData } from '../lib/skill-tree-data';
+import { applyVisibilityToNodes } from '../lib/filter-utils';
 import type { SkillTreeNode } from '../lib/types';
 
 interface SkillsTreeProps {
@@ -13,10 +15,22 @@ interface SkillsTreeProps {
 export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
   const [selectedNode, setSelectedNode] = useState<SkillTreeNode | null>(null);
   const [hoveredNode, setHoveredNode] = useState<SkillTreeNode | null>(null);
+  const [filters, setFilters] = useState<FilterState>({
+    paths: [],
+    products: [],
+    difficulties: [],
+    statuses: []
+  });
 
   const skillTreeNodes = useMemo(() => 
     createSkillTreeData(exercises, paths), 
     [exercises, paths]
+  );
+
+  // Apply visibility based on filters
+  const nodesWithVisibility = useMemo(() => 
+    applyVisibilityToNodes(skillTreeNodes, filters),
+    [skillTreeNodes, filters]
   );
 
   const handleNodeClick = (node: SkillTreeNode) => {
@@ -29,97 +43,109 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
 
   // Calculate SVG dimensions based on node positions
   const svgDimensions = useMemo(() => {
-    const positions = skillTreeNodes.map(node => node.position);
+    const positions = nodesWithVisibility.map(node => node.position);
     const maxX = Math.max(...positions.map(p => p.x)) + 100;
     const maxY = Math.max(...positions.map(p => p.y)) + 100;
     return { width: Math.max(maxX, 1400), height: Math.max(maxY, 1200) };
-  }, [skillTreeNodes]);
+  }, [nodesWithVisibility]);
 
   // Get unique colors for marker definitions
   const uniqueColors = useMemo(() => {
     const colors = new Set<string>();
-    skillTreeNodes.forEach(node => {
+    nodesWithVisibility.forEach(node => {
       colors.add(node.path.color);
     });
     return Array.from(colors);
-  }, [skillTreeNodes]);
+  }, [nodesWithVisibility]);
 
   return (
     <div className="relative w-full h-screen overflow-auto bg-background">
-      <svg
-        width={svgDimensions.width}
-        height={svgDimensions.height}
-        className="absolute top-0 left-0"
-        style={{ minWidth: '100%', minHeight: '100vh' }}
-      >
-        {/* Define arrow markers for all path colors */}
-        <defs>
-          {uniqueColors.map(color => (
-            <marker
-              key={`arrow-${color.replace('#', '')}`}
-              id={`arrow-${color.replace('#', '')}`}
-              viewBox="0 0 10 10"
-              refX="9"
-              refY="3"
-              markerUnits="strokeWidth"
-              markerWidth="4"
-              markerHeight="3"
-              orient="auto"
-            >
-              <path
-                d="M0,0 L0,6 L9,3 z"
-                fill={color}
-                opacity={0.6}
-              />
-            </marker>
-          ))}
-        </defs>
+      {/* Filter Bar */}
+      <FilterBar
+        exercises={exercises}
+        paths={paths}
+        filters={filters}
+        onFiltersChange={setFilters}
+      />
 
-        {/* Render skill paths */}
-        <g className="skill-paths">
-          {skillTreeNodes.map(node => {
-            return node.dependencies.map(depSlug => {
-              const depNode = skillTreeNodes.find(n => n.exercise.slug === depSlug);
-              if (!depNode) return null;
-              
-              return (
-                <SkillPath
-                  key={`${depSlug}-${node.exercise.slug}`}
-                  from={depNode.position}
-                  to={node.position}
-                  color={node.path.color}
-                  isHighlighted={hoveredNode === node || hoveredNode === depNode}
+      {/* Main content area with left margin for filter bar */}
+      <div className="ml-80">
+        <svg
+          width={svgDimensions.width}
+          height={svgDimensions.height}
+          className="absolute top-0 left-0"
+          style={{ minWidth: '100%', minHeight: '100vh' }}
+        >
+          {/* Define arrow markers for all path colors */}
+          <defs>
+            {uniqueColors.map(color => (
+              <marker
+                key={`arrow-${color.replace('#', '')}`}
+                id={`arrow-${color.replace('#', '')}`}
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="3"
+                markerUnits="strokeWidth"
+                markerWidth="4"
+                markerHeight="3"
+                orient="auto"
+              >
+                <path
+                  d="M0,0 L0,6 L9,3 z"
+                  fill={color}
+                  opacity={0.6}
                 />
-              );
-            });
-          }).flat().filter(Boolean)}
-        </g>
+              </marker>
+            ))}
+          </defs>
 
-        {/* Render skill nodes */}
-        <g className="skill-nodes">
-          {skillTreeNodes.map(node => (
-            <SkillNode
-              key={node.exercise.slug}
-              node={node}
-              isSelected={selectedNode === node}
-              isHighlighted={hoveredNode === node}
-              onClick={() => handleNodeClick(node)}
-              onMouseEnter={() => handleNodeHover(node)}
-              onMouseLeave={() => handleNodeHover(null)}
-            />
-          ))}
-        </g>
-      </svg>
+          {/* Render skill paths */}
+          <g className="skill-paths">
+            {nodesWithVisibility.map(node => {
+              return node.dependencies.map(depSlug => {
+                const depNode = nodesWithVisibility.find(n => n.exercise.slug === depSlug);
+                if (!depNode) return null;
+                
+                return (
+                  <SkillPath
+                    key={`${depSlug}-${node.exercise.slug}`}
+                    from={depNode.position}
+                    to={node.position}
+                    color={node.path.color}
+                    isHighlighted={hoveredNode?.exercise.slug === node.exercise.slug || hoveredNode?.exercise.slug === depNode.exercise.slug}
+                  />
+                );
+              });
+            }).flat().filter(Boolean)}
+          </g>
 
-      {/* Exercise details panel */}
-      {(selectedNode || hoveredNode) && (
-        <ExerciseDetails
-          node={selectedNode || hoveredNode!}
-          isSelected={!!selectedNode}
-          onClose={() => setSelectedNode(null)}
-          position={(selectedNode || hoveredNode)?.position}
-        />
-      )}
+          {/* Render skill nodes */}
+          <g className="skill-nodes">
+            {nodesWithVisibility.map(node => (
+              <SkillNode
+                key={node.exercise.slug}
+                node={node}
+                isSelected={selectedNode?.exercise.slug === node.exercise.slug}
+                isHighlighted={hoveredNode?.exercise.slug === node.exercise.slug}
+                visibility={node.visibility}
+                onClick={() => handleNodeClick(node)}
+                onMouseEnter={() => handleNodeHover(node)}
+                onMouseLeave={() => handleNodeHover(null)}
+              />
+            ))}
+          </g>
+        </svg>
+
+        {/* Exercise details panel */}
+        {(selectedNode || hoveredNode) && (
+          <ExerciseDetails
+            node={selectedNode || hoveredNode!}
+            isSelected={!!selectedNode}
+            onClose={() => setSelectedNode(null)}
+            position={(selectedNode || hoveredNode)?.position}
+          />
+        )}
+      </div>
     </div>
   );
 }

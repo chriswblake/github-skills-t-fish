@@ -10,6 +10,9 @@ export interface Exercise {
   pathSlug?: string; // Which learning path this exercise belongs to
   dependencies?: string[]; // Array of exercise slugs this depends on
   position?: { x: number; y: number }; // Visual position in the skill tree
+  // Filter fields
+  products?: string[];
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
 export interface Path {
