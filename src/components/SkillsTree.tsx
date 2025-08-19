@@ -11,11 +11,9 @@ import type { SkillTreeNode } from '../lib/types';
 interface SkillsTreeProps {
   exercises: any[];
   paths: any[];
-  filterBarCollapsed: boolean;
-  onFilterBarCollapsedChange: (collapsed: boolean) => void;
 }
 
-export function SkillsTree({ exercises, paths, filterBarCollapsed, onFilterBarCollapsedChange }: SkillsTreeProps) {
+export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
   const [selectedNode, setSelectedNode] = useState<SkillTreeNode | null>(null);
   const [hoveredNode, setHoveredNode] = useState<SkillTreeNode | null>(null);
   const [filters, setFilters] = useState<FilterState>({
@@ -109,18 +107,12 @@ export function SkillsTree({ exercises, paths, filterBarCollapsed, onFilterBarCo
         paths={paths}
         filters={filters}
         onFiltersChange={setFilters}
-        isCollapsed={filterBarCollapsed}
-        onCollapsedChange={onFilterBarCollapsedChange}
       />
 
-      {/* Search Bar - positioned below header with adaptive left margin */}
-      <div 
-        className={`absolute right-0 z-40 bg-background/95 backdrop-blur border-b border-border transition-all duration-200 ${
-          filterBarCollapsed ? 'left-16' : 'left-64'
-        }`}
-      >
+      {/* Search Bar - centered on the page with left margin for filter bar */}
+      <div className="absolute left-64 right-0 top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
         <div className="px-6 py-3">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl mx-auto">
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
@@ -129,12 +121,10 @@ export function SkillsTree({ exercises, paths, filterBarCollapsed, onFilterBarCo
         </div>
       </div>
 
-      {/* Main content area with adaptive left margin for filter bar and top margin for search */}
+      {/* Main content area with left margin for filter bar and top margin for search */}
       <div 
         ref={containerRef}
-        className={`h-full cursor-grab active:cursor-grabbing transition-all duration-200 ${
-          filterBarCollapsed ? 'ml-16' : 'ml-64'
-        }`}
+        className="h-full cursor-grab active:cursor-grabbing ml-64"
         style={{ 
           cursor: isDragging ? 'grabbing' : 'grab',
           paddingTop: '159px' // Space for header + search bar

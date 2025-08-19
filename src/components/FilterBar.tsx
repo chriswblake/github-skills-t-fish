@@ -19,8 +19,6 @@ interface FilterBarProps {
   paths: Path[];
   filters: FilterState;
   onFiltersChange: (filters: FilterState) => void;
-  isCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 interface FilterSectionProps {
@@ -122,9 +120,7 @@ export function FilterBar({
   exercises, 
   paths, 
   filters, 
-  onFiltersChange, 
-  isCollapsed = false, 
-  onCollapsedChange 
+  onFiltersChange
 }: FilterBarProps) {
 
   // Extract unique values from exercises
@@ -177,21 +173,6 @@ export function FilterBar({
     });
   };
 
-  if (isCollapsed) {
-    return (
-      <div className="fixed left-0 top-20 z-40 bg-card border-r border-border rounded-r-md shadow-md">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onCollapsedChange?.(false)}
-          className="m-2"
-        >
-          <ChevronRightIcon size={16} />
-        </Button>
-      </div>
-    );
-  }
-
   return (
     <Card className="fixed left-0 top-20 z-40 w-fit min-w-64 max-w-80 h-[calc(100vh-5rem)] bg-card border-r border-border rounded-none border-l-0 border-t-0 border-b-0">
       <div className="flex items-center justify-between p-3 border-b border-border">
@@ -203,27 +184,17 @@ export function FilterBar({
             </span>
           )}
         </div>
-        <div className="flex items-center gap-1">
-          {totalActiveFilters > 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClearAllFilters}
-              className="text-xs h-6 px-2"
-            >
-              <XIcon size={12} className="mr-1" />
-              Clear All
-            </Button>
-          )}
+        {totalActiveFilters > 0 && (
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onCollapsedChange?.(true)}
-            className="h-6 w-6 p-0"
+            onClick={handleClearAllFilters}
+            className="text-xs h-6 px-2"
           >
-            <ChevronRightIcon size={16} />
+            <XIcon size={12} className="mr-1" />
+            Clear All
           </Button>
-        </div>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto">
