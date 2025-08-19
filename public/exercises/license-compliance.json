@@ -8,5 +8,11 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/37",
   "pathSlug": "security",
   "dependencies": ["dependabot"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 ,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
+}
+,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
 }

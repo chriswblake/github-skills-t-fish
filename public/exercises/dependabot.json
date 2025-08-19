@@ -8,5 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/12",
   "pathSlug": "security",
   "dependencies": ["code-security"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 },
+  "products": ["Repository"],
+  "difficulty": "Beginner"
 }

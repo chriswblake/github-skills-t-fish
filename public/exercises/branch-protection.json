@@ -8,5 +8,11 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/16",
   "pathSlug": "security",
   "dependencies": ["pull-requests", "code-review"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 ,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
+}
+,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
 }

@@ -8,5 +8,11 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/19",
   "pathSlug": "fundamentals",
   "dependencies": ["git-basics"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 ,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
+}
+,
+  "products": ["Repository"],
+  "difficulty": "Intermediate"
 }

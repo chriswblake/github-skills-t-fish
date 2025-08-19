@@ -8,5 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/33",
   "pathSlug": "automation",
   "dependencies": ["github-apps"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 },
+  "products": ["Repository"],
+  "difficulty": "Advanced"
 }

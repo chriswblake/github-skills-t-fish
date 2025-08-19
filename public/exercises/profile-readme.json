@@ -8,5 +8,11 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/21",
   "pathSlug": "fundamentals",
   "dependencies": ["markdown-portfolio"],
-  "position": { "x": 0, "y": 100 }
+  "position": { "x": 0, "y": 100 ,
+  "products": ["Repository"],
+  "difficulty": "Beginner"
+}
+,
+  "products": ["Repository"],
+  "difficulty": "Beginner"
 }
