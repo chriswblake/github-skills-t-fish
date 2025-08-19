@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/35",
   "pathSlug": "automation",
   "dependencies": ["webhooks"],
-  "position": { "x": 0, "y": 100 ,
-  "products": ["Repository"],
-  "difficulty": "Advanced"
-}
-,
+  "position": { "x": 0, "y": 100 },
   "products": ["Repository"],
   "difficulty": "Advanced"
 }

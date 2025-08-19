@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/25",
   "pathSlug": "automation",
   "dependencies": ["release-based-workflow", "continuous-integration"],
-  "position": { "x": 0, "y": 100 ,
-  "products": ["Actions"],
-  "difficulty": "Intermediate"
-}
-,
+  "position": { "x": 0, "y": 100 },
   "products": ["Actions"],
   "difficulty": "Intermediate"
 }

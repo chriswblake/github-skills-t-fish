@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/8",
   "pathSlug": "automation",
   "dependencies": ["git-basics", "pull-requests"],
-  "position": { "x": 0, "y": 100 ,
-  "products": ["Repository", "Actions"],
-  "difficulty": "Intermediate"
-}
-,
+  "position": { "x": 0, "y": 100 },
   "products": ["Repository", "Actions"],
   "difficulty": "Intermediate"
 }

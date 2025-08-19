@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/42",
   "pathSlug": "project-management",
   "dependencies": ["hello-github"],
-  "position": { "x": -250, "y": 100 ,
-  "products": ["Repository"],
-  "difficulty": "Intermediate"
-}
-,
+  "position": { "x": -250, "y": 100 },
   "products": ["Repository"],
   "difficulty": "Intermediate"
 }

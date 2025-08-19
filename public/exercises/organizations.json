@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/17",
   "pathSlug": "collaboration",
   "dependencies": ["team-management"],
-  "position": { "x": 0, "y": 100 ,
-  "products": ["Repository"],
-  "difficulty": "Intermediate"
-}
-,
+  "position": { "x": 0, "y": 100 },
   "products": ["Repository"],
   "difficulty": "Intermediate"
 }

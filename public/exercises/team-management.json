@@ -8,11 +8,7 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/41",
   "pathSlug": "collaboration",
   "dependencies": ["hello-github"],
-  "position": { "x": 150, "y": 100 ,
-  "products": ["Repository"],
-  "difficulty": "Intermediate"
-}
-,
+  "position": { "x": 150, "y": 100 },
   "products": ["Repository"],
   "difficulty": "Intermediate"
 }
