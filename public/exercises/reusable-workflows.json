@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/28",
   "pathSlug": "automation",
   "dependencies": ["github-actions-intro", "continuous-integration"],
-  "position": { "x": 0, "y": 700 }
+  "position": { "x": 150, "y": 50 }
 }

@@ -42,16 +42,9 @@ export function createSkillTreeData(exercises: Exercise[], paths: Path[]): Skill
   const calculatePosition = (node: SkillTreeNode): void => {
     if (positionedNodes.has(node.exercise.slug)) return;
 
-    // If exercise has explicit position, use it (backwards compatibility)
-    if (node.exercise.position) {
-      node.position = node.exercise.position;
-      positionedNodes.add(node.exercise.slug);
-      return;
-    }
-
-    // If no dependencies, position at origin (0, 0)
+    // If no dependencies, use the exercise's position as absolute (or default to origin)
     if (node.dependencies.length === 0) {
-      node.position = { x: 0, y: 0 };
+      node.position = node.exercise.position || { x: 0, y: 0 };
       positionedNodes.add(node.exercise.slug);
       return;
     }
@@ -65,7 +58,9 @@ export function createSkillTreeData(exercises: Exercise[], paths: Path[]): Skill
     }
 
     // Find the last dependency (rightmost/bottommost position)
+    let lastDepNode: SkillTreeNode | undefined;
     let lastDepPosition = { x: 0, y: 0 };
+    
     for (const depSlug of node.dependencies) {
       const depNode = nodeMap.get(depSlug);
       if (depNode) {
@@ -74,31 +69,17 @@ export function createSkillTreeData(exercises: Exercise[], paths: Path[]): Skill
         const lastTotal = lastDepPosition.x + lastDepPosition.y;
         if (depTotal > lastTotal) {
           lastDepPosition = depNode.position;
+          lastDepNode = depNode;
         }
       }
     }
 
-    // Position relative to the last dependency
-    // Add some offset to avoid overlapping
-    const offsetX = 150; // Horizontal spacing between levels
-    const offsetY = 100; // Vertical spacing for branching
-    
-    // Find which dependency is the "last" one we're positioning relative to
-    let lastDepNode: SkillTreeNode | undefined;
-    for (const depSlug of node.dependencies) {
-      const depNode = nodeMap.get(depSlug);
-      if (depNode && (depNode.position.x === lastDepPosition.x && depNode.position.y === lastDepPosition.y)) {
-        lastDepNode = depNode;
-        break;
-      }
-    }
-    
-    // Calculate vertical offset based on how many dependents the last dependency has
-    const dependentIndex = lastDepNode ? lastDepNode.dependents.indexOf(node.exercise.slug) : 0;
+    // Calculate final position relative to last dependency
+    const relativePosition = node.exercise.position || { x: 0, y: 50 }; // Default relative offset
     
     node.position = {
-      x: lastDepPosition.x + offsetX,
-      y: lastDepPosition.y + (dependentIndex * offsetY)
+      x: lastDepPosition.x + relativePosition.x,
+      y: lastDepPosition.y + relativePosition.y
     };
 
     positionedNodes.add(node.exercise.slug);

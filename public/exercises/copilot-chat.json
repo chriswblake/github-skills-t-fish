@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/29",
   "pathSlug": "ai-productivity",
   "dependencies": ["github-copilot"],
-  "position": { "x": 0, "y": 900 }
+  "position": { "x": 150, "y": 50 }
 }
