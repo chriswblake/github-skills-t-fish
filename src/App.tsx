@@ -36,7 +36,7 @@ function App() {
     <div className="min-h-screen bg-background">
       {/* Header - adjusted to account for filter bar */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur border-b border-border">
-        <div className="pl-80 pr-6 py-4">
+        <div className="pl-64 pr-6 py-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-foreground">GitHub Skills Roadmap</h1>

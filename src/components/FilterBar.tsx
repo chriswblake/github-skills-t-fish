@@ -162,7 +162,7 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
 
   if (isCollapsed) {
     return (
-      <div className="fixed left-0 top-[73px] z-40 bg-card border-r border-border">
+      <div className="fixed left-0 top-20 z-40 bg-card border-r border-border rounded-r-md shadow-md">
         <Button
           variant="ghost"
           size="sm"
@@ -176,7 +176,7 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
   }
 
   return (
-    <Card className="fixed left-0 top-[73px] z-40 w-80 h-[calc(100vh-73px)] bg-card border-r border-border rounded-none border-l-0 border-t-0 border-b-0">
+    <Card className="fixed left-0 top-20 z-40 w-fit min-w-64 max-w-80 h-[calc(100vh-5rem)] bg-card border-r border-border rounded-none border-l-0 border-t-0 border-b-0">
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
           <h2 className="font-semibold text-foreground">Filters</h2>

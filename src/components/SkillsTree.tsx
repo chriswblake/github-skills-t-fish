@@ -110,7 +110,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
       {/* Main content area with left margin for filter bar */}
       <div 
         ref={containerRef}
-        className="ml-80 h-full cursor-grab active:cursor-grabbing"
+        className="ml-64 h-full cursor-grab active:cursor-grabbing"
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
