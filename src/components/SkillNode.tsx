@@ -150,7 +150,10 @@ export function SkillNode({
         r={hoverRadius}
         fill="transparent"
         style={{ cursor: 'pointer' }}
-        onClick={onClick}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       />

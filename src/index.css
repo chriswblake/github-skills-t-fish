@@ -78,3 +78,11 @@
 .skill-path:hover {
   filter: brightness(1.3) drop-shadow(0 0 8px currentColor);
 }
+
+.svg-background {
+  cursor: grab;
+}
+
+.svg-background:active {
+  cursor: grabbing;
+}

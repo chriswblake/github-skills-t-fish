@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
 import { SkillNode } from './SkillNode';
 import { SkillPath } from './SkillPath';
 import { ExerciseDetails } from './ExerciseDetails';
@@ -22,6 +22,13 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     statuses: []
   });
 
+  // Pan state for drag-to-move functionality
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const skillTreeNodes = useMemo(() => 
     createSkillTreeData(exercises, paths), 
     [exercises, paths]
@@ -41,6 +48,38 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     setHoveredNode(node);
   };
 
+  // Pan/drag functionality
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    // Only start dragging if clicking on SVG background, not on nodes or other elements
+    const target = e.target as Element;
+    if (target.tagName === 'svg' || target.classList.contains('svg-background')) {
+      setIsDragging(true);
+      setDragStart({ x: e.clientX, y: e.clientY });
+      setPanStart({ x: panOffset.x, y: panOffset.y });
+      e.preventDefault();
+    }
+  }, [panOffset]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isDragging) {
+      const deltaX = e.clientX - dragStart.x;
+      const deltaY = e.clientY - dragStart.y;
+      setPanOffset({
+        x: panStart.x + deltaX,
+        y: panStart.y + deltaY
+      });
+    }
+  }, [isDragging, dragStart, panStart]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  // Also handle mouse leave to stop dragging
+  const handleMouseLeave = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
   // Calculate SVG dimensions based on node positions
   const svgDimensions = useMemo(() => {
     const positions = nodesWithVisibility.map(node => node.position);
@@ -59,7 +98,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
   }, [nodesWithVisibility]);
 
   return (
-    <div className="relative w-full h-screen overflow-auto bg-background">
+    <div className="relative w-full h-screen overflow-hidden bg-background">
       {/* Filter Bar */}
       <FilterBar
         exercises={exercises}
@@ -69,13 +108,33 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
       />
 
       {/* Main content area with left margin for filter bar */}
-      <div className="ml-80">
+      <div 
+        ref={containerRef}
+        className="ml-80 h-full cursor-grab active:cursor-grabbing"
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+      >
         <svg
           width={svgDimensions.width}
           height={svgDimensions.height}
           className="absolute top-0 left-0"
-          style={{ minWidth: '100%', minHeight: '100vh' }}
+          style={{ 
+            minWidth: '100%', 
+            minHeight: '100vh',
+            transform: `translate(${panOffset.x}px, ${panOffset.y}px)`,
+            transition: isDragging ? 'none' : 'transform 0.1s ease'
+          }}
+          onMouseDown={handleMouseDown}
         >
+          {/* Background rect for catching mouse events */}
+          <rect
+            width="100%"
+            height="100%"
+            fill="transparent"
+            className="svg-background"
+          />
           {/* Define arrow markers for all path colors */}
           <defs>
             {uniqueColors.map(color => (
@@ -143,6 +202,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
             isSelected={!!selectedNode}
             onClose={() => setSelectedNode(null)}
             position={(selectedNode || hoveredNode)?.position}
+            panOffset={panOffset}
           />
         )}
       </div>
