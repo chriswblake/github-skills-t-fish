@@ -5,5 +5,8 @@
   "icon": "git-branch",
   "description": "Master complex Git operations and workflows.",
   "repositoryUrl": "https://github.com/skills/advanced-git",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/39"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/39",
+  "pathSlug": "fundamentals",
+  "dependencies": ["git-basics", "merge-conflicts"],
+  "position": { "x": 400, "y": 500 }
 }

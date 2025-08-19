@@ -5,5 +5,8 @@
   "icon": "gear",
   "description": "Customize GitHub Copilot for your coding style.",
   "repositoryUrl": "https://github.com/skills/copilot-customization",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/43"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/43",
+  "pathSlug": "ai-productivity",
+  "dependencies": ["github-copilot"],
+  "position": { "x": 200, "y": 900 }
 }

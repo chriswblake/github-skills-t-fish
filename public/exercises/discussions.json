@@ -5,5 +5,8 @@
   "icon": "comment-discussion",
   "description": "Foster community engagement with GitHub Discussions.",
   "repositoryUrl": "https://github.com/skills/discussions",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/36"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/36",
+  "pathSlug": "collaboration",
+  "dependencies": ["community-standards"],
+  "position": { "x": 800, "y": 500 }
 }

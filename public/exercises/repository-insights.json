@@ -5,5 +5,8 @@
   "icon": "graph",
   "description": "Analyze project health with repository insights.",
   "repositoryUrl": "https://github.com/skills/repository-insights",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/42"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/42",
+  "pathSlug": "project-management",
+  "dependencies": ["hello-github"],
+  "position": { "x": 400, "y": 300 }
 }

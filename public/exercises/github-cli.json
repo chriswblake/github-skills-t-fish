@@ -5,5 +5,8 @@
   "icon": "terminal",
   "description": "Use GitHub CLI for command-line repository management.",
   "repositoryUrl": "https://github.com/skills/github-cli",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/19"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/19",
+  "pathSlug": "fundamentals",
+  "dependencies": ["git-basics"],
+  "position": { "x": 600, "y": 200 }
 }

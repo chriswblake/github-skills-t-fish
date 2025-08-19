@@ -5,5 +5,8 @@
   "icon": "sync",
   "description": "Migrate projects to GitHub from other platforms.",
   "repositoryUrl": "https://github.com/skills/migration-tools",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/47"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/47",
+  "pathSlug": "fundamentals",
+  "dependencies": ["git-basics"],
+  "position": { "x": 800, "y": 100 }
 }

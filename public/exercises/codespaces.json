@@ -5,5 +5,8 @@
   "icon": "codespaces",
   "description": "Develop in cloud-based development environments.",
   "repositoryUrl": "https://github.com/skills/codespaces",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/15"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/15",
+  "pathSlug": "fundamentals",
+  "dependencies": ["hello-github"],
+  "position": { "x": 200, "y": 400 }
 }

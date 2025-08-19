@@ -5,5 +5,8 @@
   "icon": "plug",
   "description": "Integrate with GitHub's REST and GraphQL APIs.",
   "repositoryUrl": "https://github.com/skills/api-integration", 
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/33"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/33",
+  "pathSlug": "automation",
+  "dependencies": ["github-apps"],
+  "position": { "x": 800, "y": 500 }
 }

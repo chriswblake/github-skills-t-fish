@@ -5,5 +5,8 @@
   "icon": "people",
   "description": "Organize teams and manage repository permissions.",
   "repositoryUrl": "https://github.com/skills/team-management",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/41"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/41",
+  "pathSlug": "collaboration",
+  "dependencies": ["hello-github"],
+  "position": { "x": 600, "y": 700 }
 }

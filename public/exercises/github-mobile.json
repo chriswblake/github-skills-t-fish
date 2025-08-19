@@ -5,5 +5,8 @@
   "icon": "device-mobile",
   "description": "Manage repositories on-the-go with GitHub Mobile.",
   "repositoryUrl": "https://github.com/skills/github-mobile",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/32"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/32",
+  "pathSlug": "fundamentals",
+  "dependencies": ["hello-github"],
+  "position": { "x": 200, "y": 200 }
 }

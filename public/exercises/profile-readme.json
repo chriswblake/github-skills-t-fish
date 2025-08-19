@@ -5,5 +5,8 @@
   "icon": "person",
   "description": "Create an impressive GitHub profile with a custom README.",
   "repositoryUrl": "https://github.com/skills/profile-readme",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/21"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/21",
+  "pathSlug": "fundamentals",
+  "dependencies": ["markdown-portfolio"],
+  "position": { "x": 800, "y": 400 }
 }

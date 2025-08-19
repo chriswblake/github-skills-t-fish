@@ -5,5 +5,8 @@
   "icon": "checklist",
   "description": "Ensure web accessibility with automated testing.",
   "repositoryUrl": "https://github.com/skills/accessibility-testing",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/50"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/50",
+  "pathSlug": "automation",
+  "dependencies": ["continuous-integration"],
+  "position": { "x": 600, "y": 600 }
 }

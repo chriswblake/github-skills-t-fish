@@ -5,5 +5,8 @@
   "icon": "people",
   "description": "Establish healthy community guidelines and standards.",
   "repositoryUrl": "https://github.com/skills/community-standards",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/49"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/49",
+  "pathSlug": "collaboration",
+  "dependencies": ["hello-github"],
+  "position": { "x": 800, "y": 200 }
 }

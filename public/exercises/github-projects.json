@@ -5,5 +5,8 @@
   "icon": "project",
   "description": "Organize and prioritize work with GitHub Projects.",
   "repositoryUrl": "https://github.com/skills/github-projects",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/10"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/10",
+  "pathSlug": "project-management",
+  "dependencies": ["github-issues"],
+  "position": { "x": 200, "y": 300 }
 }

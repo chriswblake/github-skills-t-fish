@@ -5,5 +5,8 @@
   "icon": "apps",
   "description": "Build powerful integrations using GitHub Apps.",
   "repositoryUrl": "https://github.com/skills/github-apps",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/35"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/35",
+  "pathSlug": "automation",
+  "dependencies": ["webhooks"],
+  "position": { "x": 600, "y": 800 }
 }

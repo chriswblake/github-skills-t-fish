@@ -5,5 +5,8 @@
   "icon": "check",
   "description": "Set up automated testing and builds with CI workflows.",
   "repositoryUrl": "https://github.com/skills/continuous-integration",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/24"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/24",
+  "pathSlug": "automation",
+  "dependencies": ["github-actions-intro"],
+  "position": { "x": 400, "y": 500 }
 }
