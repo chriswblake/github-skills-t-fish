@@ -117,6 +117,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
           node={selectedNode || hoveredNode!}
           isSelected={!!selectedNode}
           onClose={() => setSelectedNode(null)}
+          position={(selectedNode || hoveredNode)?.position}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -9,10 +9,77 @@ interface ExerciseDetailsProps {
   node: SkillTreeNode;
   isSelected: boolean;
   onClose: () => void;
+  position?: { x: number; y: number };
 }
 
-export function ExerciseDetails({ node, isSelected, onClose }: ExerciseDetailsProps) {
+export function ExerciseDetails({ node, isSelected, onClose, position }: ExerciseDetailsProps) {
   const { exercise, path } = node;
+  const [positionStyle, setPositionStyle] = useState<React.CSSProperties>({});
+
+  // Calculate safe position that keeps popup visible
+  const calculatePosition = () => {
+    if (!position) return { top: '1.5rem', right: '1.5rem' };
+
+    const cardWidth = 320; // 80 * 4px (w-80)
+    const cardHeight = 400; // Approximate height
+    const padding = 20; // Minimum distance from viewport edge
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Get scroll position to account for scrolled content
+    const scrollContainer = document.querySelector('.relative.w-full.h-screen.overflow-auto') as HTMLElement;
+    const scrollLeft = scrollContainer?.scrollLeft || 0;
+    const scrollTop = scrollContainer?.scrollTop || 0;
+
+    // Start with position offset from the node (accounting for scroll)
+    let left = position.x + 60 - scrollLeft; // Offset to the right of the node
+    let top = position.y - 100 - scrollTop; // Offset above the node center
+
+    // Adjust horizontal position if it would overflow
+    if (left + cardWidth > viewportWidth - padding) {
+      left = position.x - cardWidth - 60 - scrollLeft; // Show to the left instead
+    }
+    if (left < padding) {
+      left = padding; // Ensure minimum left margin
+    }
+
+    // Adjust vertical position if it would overflow
+    if (top + cardHeight > viewportHeight - padding) {
+      top = viewportHeight - cardHeight - padding;
+    }
+    if (top < padding) {
+      top = padding;
+    }
+
+    return {
+      position: 'fixed' as const,
+      left: `${left}px`,
+      top: `${top}px`,
+    };
+  };
+
+  // Update position when node changes or on mount
+  useEffect(() => {
+    setPositionStyle(calculatePosition());
+  }, [position, node]);
+
+  // Recalculate position on scroll or resize
+  useEffect(() => {
+    const updatePosition = () => {
+      setPositionStyle(calculatePosition());
+    };
+
+    const scrollContainer = document.querySelector('.relative.w-full.h-screen.overflow-auto');
+    scrollContainer?.addEventListener('scroll', updatePosition);
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      scrollContainer?.removeEventListener('scroll', updatePosition);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [position]);
   
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -26,10 +93,11 @@ export function ExerciseDetails({ node, isSelected, onClose }: ExerciseDetailsPr
   return (
     <Card 
       className={`
-        fixed top-6 right-6 w-80 border-border bg-card/95 backdrop-blur
-        ${isSelected ? 'z-50' : 'z-40 pointer-events-none'}
+        w-80 border-border bg-card/95 backdrop-blur transition-all duration-200 ease-out
+        ${isSelected ? 'z-50 scale-100 opacity-100' : 'z-40 pointer-events-none scale-95 opacity-90'}
       `}
       style={{
+        ...positionStyle,
         borderColor: path.color,
         boxShadow: `0 0 24px ${path.color}33`
       }}
