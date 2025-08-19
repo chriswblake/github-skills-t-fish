@@ -19,6 +19,8 @@ interface FilterBarProps {
   paths: Path[];
   filters: FilterState;
   onFiltersChange: (filters: FilterState) => void;
+  isCollapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 interface FilterSectionProps {
@@ -116,8 +118,14 @@ function FilterSection({ title, items, selectedItems, onSelectionChange }: Filte
   );
 }
 
-export function FilterBar({ exercises, paths, filters, onFiltersChange }: FilterBarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+export function FilterBar({ 
+  exercises, 
+  paths, 
+  filters, 
+  onFiltersChange, 
+  isCollapsed = false, 
+  onCollapsedChange 
+}: FilterBarProps) {
 
   // Extract unique values from exercises
   const filterOptions = useMemo(() => {
@@ -175,7 +183,7 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => setIsCollapsed(false)}
+          onClick={() => onCollapsedChange?.(false)}
           className="m-2"
         >
           <ChevronRightIcon size={16} />
@@ -210,7 +218,7 @@ export function FilterBar({ exercises, paths, filters, onFiltersChange }: Filter
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setIsCollapsed(true)}
+            onClick={() => onCollapsedChange?.(true)}
             className="h-6 w-6 p-0"
           >
             <ChevronRightIcon size={16} />

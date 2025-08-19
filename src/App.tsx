@@ -6,6 +6,7 @@ import { Toaster } from './components/ui/sonner';
 function App() {
   const { exercises, loading: exercisesLoading, error: exercisesError } = useExercises();
   const { paths, loading: pathsLoading, error: pathsError } = usePaths();
+  const [filterBarCollapsed, setFilterBarCollapsed] = React.useState(false);
 
   const loading = exercisesLoading || pathsLoading;
   const error = exercisesError || pathsError;
@@ -34,9 +35,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header - adjusted to account for filter bar */}
+      {/* Header with adaptive left padding based on filter bar state */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur border-b border-border">
-        <div className="pl-64 pr-6 py-4">
+        <div className={`pr-6 py-4 transition-all duration-200 ${
+          filterBarCollapsed ? 'pl-20' : 'pl-6'
+        }`}>
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-foreground">GitHub Skills Roadmap</h1>
@@ -52,9 +55,14 @@ function App() {
         </div>
       </header>
 
-      {/* Main Skills Tree - will handle its own search bar positioning */}
+      {/* Main Skills Tree */}
       <main className="relative" style={{ marginTop: '-1px' }}>
-        <SkillsTree exercises={exercises} paths={paths} />
+        <SkillsTree 
+          exercises={exercises} 
+          paths={paths} 
+          filterBarCollapsed={filterBarCollapsed}
+          onFilterBarCollapsedChange={setFilterBarCollapsed}
+        />
       </main>
 
       <Toaster />
