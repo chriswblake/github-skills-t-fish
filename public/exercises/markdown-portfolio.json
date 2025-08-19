@@ -5,5 +5,8 @@
   "icon": "markdown",
   "description": "Create beautiful documentation using Markdown syntax.",
   "repositoryUrl": "https://github.com/skills/markdown-portfolio",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/3"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/3",
+  "pathSlug": "fundamentals",
+  "dependencies": ["git-basics"],
+  "position": { "x": 300, "y": 300 }
 }

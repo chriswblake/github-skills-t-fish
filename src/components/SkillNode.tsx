@@ -87,14 +87,14 @@ export function SkillNode({
   const opacity = getOpacity(exercise.status);
   const nodeRadius = isHighlighted || isSelected ? 34 : 28;
   const ringRadius = nodeRadius + 6;
+  
+  // Use a stable hover area that doesn't change size
+  const hoverRadius = 40; // Slightly larger than the largest visual size
 
   return (
     <g
       transform={`translate(${position.x}, ${position.y})`}
-      className="skill-node cursor-pointer"
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      className="skill-node"
       style={{ opacity }}
     >
       {/* Selection ring */}
@@ -151,6 +151,16 @@ export function SkillNode({
           {exercise.name}
         </text>
       )}
+      
+      {/* Invisible hover area - stable size to prevent hover bounce */}
+      <circle
+        r={hoverRadius}
+        fill="transparent"
+        style={{ cursor: 'pointer' }}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      />
     </g>
   );
 }

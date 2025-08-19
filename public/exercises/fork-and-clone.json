@@ -5,5 +5,8 @@
   "icon": "repo-forked",
   "description": "Contribute to projects by forking and cloning repositories.",
   "repositoryUrl": "https://github.com/skills/fork-and-clone",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/18"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/18",
+  "pathSlug": "collaboration",
+  "dependencies": ["git-basics"],
+  "position": { "x": 600, "y": 200 }
 }

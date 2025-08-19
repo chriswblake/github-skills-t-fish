@@ -5,5 +5,8 @@
   "icon": "git-pull-request",
   "description": "Collaborate effectively using pull requests and code reviews.",
   "repositoryUrl": "https://github.com/skills/pull-requests", 
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/5"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/5",
+  "pathSlug": "collaboration",
+  "dependencies": ["fork-and-clone"],
+  "position": { "x": 700, "y": 300 }
 }

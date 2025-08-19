@@ -5,5 +5,8 @@
   "icon": "git-branch",
   "description": "Master fundamental Git commands for version control.",
   "repositoryUrl": "https://github.com/skills/git-basics",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/2"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/2",
+  "pathSlug": "fundamentals",
+  "dependencies": ["hello-github"],
+  "position": { "x": 400, "y": 200 }
 }

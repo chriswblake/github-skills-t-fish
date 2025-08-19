@@ -6,6 +6,10 @@ export interface Exercise {
   description: string;
   repositoryUrl: string;
   issueUrl: string;
+  // Skill tree layout information (optional for backward compatibility)
+  pathSlug?: string; // Which learning path this exercise belongs to
+  dependencies?: string[]; // Array of exercise slugs this depends on
+  position?: { x: number; y: number }; // Visual position in the skill tree
 }
 
 export interface Path {

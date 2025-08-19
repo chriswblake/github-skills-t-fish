@@ -5,5 +5,8 @@
   "icon": "mark-github",
   "description": "Learn the basics of GitHub and create your first repository.",
   "repositoryUrl": "https://github.com/skills/hello-github",
-  "issueUrl": "https://github.com/github/skills-roadmap/issues/1"
+  "issueUrl": "https://github.com/github/skills-roadmap/issues/1",
+  "pathSlug": "fundamentals",
+  "dependencies": [],
+  "position": { "x": 400, "y": 100 }
 }
