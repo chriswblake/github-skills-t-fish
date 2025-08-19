@@ -35,6 +35,15 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     return { width: Math.max(maxX, 1400), height: Math.max(maxY, 1200) };
   }, [skillTreeNodes]);
 
+  // Get unique colors for marker definitions
+  const uniqueColors = useMemo(() => {
+    const colors = new Set<string>();
+    skillTreeNodes.forEach(node => {
+      colors.add(node.path.color);
+    });
+    return Array.from(colors);
+  }, [skillTreeNodes]);
+
   return (
     <div className="relative w-full h-screen overflow-auto bg-background">
       <svg
@@ -43,10 +52,33 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
         className="absolute top-0 left-0"
         style={{ minWidth: '100%', minHeight: '100vh' }}
       >
+        {/* Define arrow markers for all path colors */}
+        <defs>
+          {uniqueColors.map(color => (
+            <marker
+              key={`arrow-${color.replace('#', '')}`}
+              id={`arrow-${color.replace('#', '')}`}
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="3"
+              markerUnits="strokeWidth"
+              markerWidth="4"
+              markerHeight="3"
+              orient="auto"
+            >
+              <path
+                d="M0,0 L0,6 L9,3 z"
+                fill={color}
+                opacity={0.6}
+              />
+            </marker>
+          ))}
+        </defs>
+
         {/* Render skill paths */}
         <g className="skill-paths">
-          {skillTreeNodes.map(node =>
-            node.dependencies.map(depSlug => {
+          {skillTreeNodes.map(node => {
+            return node.dependencies.map(depSlug => {
               const depNode = skillTreeNodes.find(n => n.exercise.slug === depSlug);
               if (!depNode) return null;
               
@@ -59,8 +91,8 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
                   isHighlighted={hoveredNode === node || hoveredNode === depNode}
                 />
               );
-            })
-          )}
+            });
+          }).flat().filter(Boolean)}
         </g>
 
         {/* Render skill nodes */}

@@ -45,7 +45,7 @@ export function SkillPath({ from, to, color, isHighlighted }: SkillPathProps) {
         />
       )}
       
-      {/* Main path */}
+      {/* Main path with arrow marker */}
       <path
         d={pathData}
         stroke={color}
@@ -54,37 +54,10 @@ export function SkillPath({ from, to, color, isHighlighted }: SkillPathProps) {
         opacity={opacity}
         strokeLinecap="round"
         strokeLinejoin="round"
+        markerEnd={`url(#arrow-${color.replace('#', '')})`}
         style={{
           transition: 'all 0.3s ease',
         }}
-      />
-      
-      {/* Arrow marker at the end */}
-      <defs>
-        <marker
-          id={`arrow-${color.replace('#', '')}`}
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="3"
-          markerUnits="strokeWidth"
-          markerWidth="4"
-          markerHeight="3"
-          orient="auto"
-        >
-          <path
-            d="M0,0 L0,6 L9,3 z"
-            fill={color}
-            opacity={opacity}
-          />
-        </marker>
-      </defs>
-      
-      <path
-        d={pathData}
-        stroke="transparent"
-        strokeWidth={strokeWidth}
-        fill="none"
-        markerEnd={`url(#arrow-${color.replace('#', '')})`}
       />
     </g>
   );

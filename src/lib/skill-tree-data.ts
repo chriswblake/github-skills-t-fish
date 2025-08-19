@@ -4,16 +4,22 @@ import type { Exercise, Path, SkillTreeNode } from '../lib/types';
 export function createSkillTreeData(exercises: Exercise[], paths: Path[]): SkillTreeNode[] {
   const pathMap = new Map(paths.map(path => [path.slug, path]));
   
-  const nodes: SkillTreeNode[] = exercises.map(exercise => {
+  const nodes: SkillTreeNode[] = exercises.map((exercise, index) => {
     // Handle exercises that may not have been updated with the new fields yet
     const pathSlug = exercise.pathSlug || 'fundamentals';
     const dependencies = exercise.dependencies || [];
     const position = exercise.position || { 
-      x: Math.floor(Math.random() * 800) + 100, 
-      y: Math.floor(Math.random() * 400) + 100 
+      // Use a grid layout for exercises without positions
+      x: 200 + (index % 6) * 150,
+      y: 200 + Math.floor(index / 6) * 150
     };
     
-    const path = pathMap.get(pathSlug) || paths[0];
+    const path = pathMap.get(pathSlug) || paths[0] || { 
+      slug: 'fundamentals', 
+      name: 'Fundamentals', 
+      description: 'Basic skills',
+      color: '#0969da'
+    };
     
     return {
       exercise,
