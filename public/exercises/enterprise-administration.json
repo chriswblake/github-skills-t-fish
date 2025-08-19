@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/40",
   "pathSlug": "collaboration",
   "dependencies": ["organizations", "team-management"],
-  "position": { "x": 0, "y": 900 }
+  "position": { "x": 0, "y": 100 }
 }

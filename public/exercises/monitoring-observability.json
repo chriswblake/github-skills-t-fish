@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/45",
   "pathSlug": "automation",
   "dependencies": ["deployment-strategies"],
-  "position": { "x": 0, "y": 700 }
+  "position": { "x": 0, "y": 100 }
 }

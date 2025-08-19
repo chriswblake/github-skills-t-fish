@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/36",
   "pathSlug": "collaboration",
   "dependencies": ["community-standards"],
-  "position": { "x": 0, "y": 500 }
+  "position": { "x": 0, "y": 100 }
 }
