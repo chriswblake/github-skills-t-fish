@@ -3,6 +3,7 @@ import { SkillNode } from './SkillNode';
 import { SkillPath } from './SkillPath';
 import { ExerciseDetails } from './ExerciseDetails';
 import { FilterBar, type FilterState } from './FilterBar';
+import { SearchBar } from './SearchBar';
 import { createSkillTreeData } from '../lib/skill-tree-data';
 import { applyVisibilityToNodes } from '../lib/filter-utils';
 import type { SkillTreeNode } from '../lib/types';
@@ -21,6 +22,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     difficulties: [],
     statuses: []
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Pan state for drag-to-move functionality
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
@@ -34,10 +36,10 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     [exercises, paths]
   );
 
-  // Apply visibility based on filters
+  // Apply visibility based on filters and search
   const nodesWithVisibility = useMemo(() => 
-    applyVisibilityToNodes(skillTreeNodes, filters),
-    [skillTreeNodes, filters]
+    applyVisibilityToNodes(skillTreeNodes, filters, searchTerm),
+    [skillTreeNodes, filters, searchTerm]
   );
 
   const handleNodeClick = (node: SkillTreeNode) => {
@@ -107,11 +109,24 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
         onFiltersChange={setFilters}
       />
 
-      {/* Main content area with left margin for filter bar */}
+      {/* Search Bar - positioned below header */}
+      <div className="absolute left-64 right-0 z-40 bg-background/95 backdrop-blur border-b border-border" style={{ top: '89px' }}>
+        <div className="px-6 py-3">
+          <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
+        </div>
+      </div>
+
+      {/* Main content area with left margin for filter bar and top margin for search */}
       <div 
         ref={containerRef}
         className="ml-64 h-full cursor-grab active:cursor-grabbing"
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        style={{ 
+          cursor: isDragging ? 'grabbing' : 'grab',
+          paddingTop: '159px' // Space for header + search bar
+        }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}

@@ -52,8 +52,8 @@ function App() {
         </div>
       </header>
 
-      {/* Main Skills Tree */}
-      <main className="relative">
+      {/* Main Skills Tree - will handle its own search bar positioning */}
+      <main className="relative" style={{ marginTop: '-1px' }}>
         <SkillsTree exercises={exercises} paths={paths} />
       </main>
 
