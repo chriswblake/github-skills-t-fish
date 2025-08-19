@@ -25,7 +25,7 @@ The roadmap data is stored in two main directories:
   "issueUrl": "https://github.com/github/skills-roadmap/issues/123",
   "pathSlug": "fundamentals",
   "dependencies": ["prerequisite-exercise"],
-  "position": { "x": 400, "y": 500 }
+  "position": { "x": 0, "y": 500 }
 }
 ```
 
@@ -125,7 +125,7 @@ Let's say you want to add a "GitHub Discussions" exercise:
   "issueUrl": "https://github.com/github/skills-roadmap/issues/234",
   "pathSlug": "collaboration",
   "dependencies": ["github-issues"],
-  "position": { "x": 500, "y": 650 }
+  "position": { "x": 0, "y": 650 }
 }
 ```
 

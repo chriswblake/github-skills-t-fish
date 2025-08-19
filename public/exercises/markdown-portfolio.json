@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/3",
   "pathSlug": "fundamentals",
   "dependencies": ["git-basics"],
-  "position": { "x": 300, "y": 300 }
+  "position": { "x": 500, "y": 300 }
 }

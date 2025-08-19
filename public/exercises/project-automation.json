@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/48",
   "pathSlug": "project-management",
   "dependencies": ["github-projects", "github-actions-intro"],
-  "position": { "x": 200, "y": 500 }
+  "position": { "x": 0, "y": 500 }
 }

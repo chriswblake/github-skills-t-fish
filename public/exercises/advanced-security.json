@@ -8,5 +8,5 @@
   "issueUrl": "https://github.com/github/skills-roadmap/issues/30",
   "pathSlug": "security",
   "dependencies": ["codeql", "secret-scanning", "dependabot"],
-  "position": { "x": 800, "y": 700 }
+  "position": { "x": 0, "y": 700 }
 }
