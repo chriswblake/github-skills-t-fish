@@ -1,6 +1,35 @@
 import { useState, useEffect } from 'react';
 import type { Exercise, Path } from '../lib/types';
 
+const GITHUB_API_BASE = 'https://api.github.com/repos/chriswblake/dev-skills-exercises/contents';
+
+interface GitHubFile {
+  name: string;
+  type: 'file' | 'dir';
+  download_url: string | null;
+}
+
+async function fetchGitHubFiles(path: string): Promise<GitHubFile[]> {
+  const response = await fetch(`${GITHUB_API_BASE}/${path}?ref=main`);
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error(`GitHub repository or path not found: ${path}`);
+    } else if (response.status === 403) {
+      throw new Error('GitHub API rate limit exceeded. Please try again later.');
+    }
+    throw new Error(`Failed to fetch files from ${path}: ${response.status} ${response.statusText}`);
+  }
+  return response.json();
+}
+
+async function fetchFileContent(downloadUrl: string) {
+  const response = await fetch(downloadUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch file content: ${response.status} ${response.statusText}`);
+  }
+  return response.json();
+}
+
 export function useExercises() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
@@ -9,33 +38,24 @@ export function useExercises() {
   useEffect(() => {
     async function loadExercises() {
       try {
-        // List of all exercise files - in a real app this would be dynamic
-        const exerciseFiles = [
-          'hello-github', 'git-basics', 'markdown-portfolio', 'github-pages',
-          'pull-requests', 'merge-conflicts', 'github-actions-intro', 'release-based-workflow',
-          'github-issues', 'github-projects', 'code-security', 'dependabot',
-          'codeql', 'github-copilot', 'codespaces', 'branch-protection',
-          'organizations', 'fork-and-clone', 'github-cli', 'secret-scanning',
-          'profile-readme', 'wiki-collaboration', 'repository-templates', 'continuous-integration',
-          'package-publishing', 'docker-container-action', 'javascript-action', 'reusable-workflows',
-          'copilot-chat', 'advanced-security', 'issue-templates', 'github-mobile',
-          'api-integration', 'webhooks', 'github-apps', 'discussions',
-          'license-compliance', 'code-review', 'advanced-git', 'enterprise-administration',
-          'team-management', 'repository-insights', 'copilot-customization', 'deployment-strategies',
-          'monitoring-observability', 'github-sponsors', 'migration-tools', 'project-automation',
-          'community-standards', 'accessibility-testing'
-        ];
+        // Get list of exercise files from GitHub
+        const files = await fetchGitHubFiles('exercises');
+        const jsonFiles = files.filter(file => 
+          file.type === 'file' && 
+          file.name.endsWith('.json') && 
+          file.download_url
+        );
 
-        const exercisePromises = exerciseFiles.map(async (slug) => {
-          const response = await fetch(`/exercises/${slug}.json`);
-          if (!response.ok) throw new Error(`Failed to load exercise: ${slug}`);
-          return response.json();
+        // Fetch content of each exercise file
+        const exercisePromises = jsonFiles.map(async (file) => {
+          if (!file.download_url) throw new Error(`No download URL for ${file.name}`);
+          return await fetchFileContent(file.download_url);
         });
 
         const loadedExercises = await Promise.all(exercisePromises);
         setExercises(loadedExercises);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load exercises');
+        setError(err instanceof Error ? err.message : 'Failed to load exercises from GitHub');
       } finally {
         setLoading(false);
       }
@@ -55,21 +75,24 @@ export function usePaths() {
   useEffect(() => {
     async function loadPaths() {
       try {
-        const pathFiles = [
-          'fundamentals', 'collaboration', 'automation',
-          'security', 'ai-productivity', 'project-management'
-        ];
+        // Get list of path files from GitHub
+        const files = await fetchGitHubFiles('paths');
+        const jsonFiles = files.filter(file => 
+          file.type === 'file' && 
+          file.name.endsWith('.json') && 
+          file.download_url
+        );
 
-        const pathPromises = pathFiles.map(async (slug) => {
-          const response = await fetch(`/paths/${slug}.json`);
-          if (!response.ok) throw new Error(`Failed to load path: ${slug}`);
-          return response.json();
+        // Fetch content of each path file
+        const pathPromises = jsonFiles.map(async (file) => {
+          if (!file.download_url) throw new Error(`No download URL for ${file.name}`);
+          return await fetchFileContent(file.download_url);
         });
 
         const loadedPaths = await Promise.all(pathPromises);
         setPaths(loadedPaths);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load paths');
+        setError(err instanceof Error ? err.message : 'Failed to load paths from GitHub');
       } finally {
         setLoading(false);
       }
