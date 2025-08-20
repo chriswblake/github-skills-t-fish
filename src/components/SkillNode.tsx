@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import * as Octicons from '@primer/octicons-react';
 import type { SkillTreeNode } from '../lib/types';
 
@@ -10,6 +10,8 @@ interface SkillNodeProps {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   visibility?: number; // 0 = fully dimmed, 1 = fully visible
+  enableDrag?: boolean;
+  onDragEnd?: (exerciseSlug: string, newPosition: { x: number; y: number }) => void;
 }
 
 // Map exercise icons to Octicon components with fallbacks
@@ -69,9 +71,22 @@ export function SkillNode({
   onClick, 
   onMouseEnter, 
   onMouseLeave,
-  visibility = 1
+  visibility = 1,
+  enableDrag = false,
+  onDragEnd
 }: SkillNodeProps) {
   const { exercise, path, position } = node;
+  
+  // Drag state for individual exercise nodes
+  const [isDragMode, setIsDragMode] = useState(false);
+  const [draggedPosition, setDraggedPosition] = useState(position);
+  
+  // Update dragged position when the node's position changes (e.g., when dragging is disabled)
+  useEffect(() => {
+    if (!isDragMode) {
+      setDraggedPosition(position);
+    }
+  }, [position, isDragMode]);
   
   // Get the appropriate icon component with fallback
   const IconComponent = iconMap[exercise.icon] || Octicons.MarkGithubIcon;
@@ -84,9 +99,57 @@ export function SkillNode({
   // Use a stable hover area that doesn't change size
   const hoverRadius = 40; // Slightly larger than the largest visual size
 
+  // Handle mouse down for dragging
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!enableDrag) return;
+    
+    e.stopPropagation();
+    e.preventDefault();
+    
+    const startMousePos = { x: e.clientX, y: e.clientY };
+    const startNodePos = { ...draggedPosition };
+    
+    setIsDragMode(true);
+    
+    // Add global mouse event listeners for dragging
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      const deltaX = e.clientX - startMousePos.x;
+      const deltaY = e.clientY - startMousePos.y;
+      
+      setDraggedPosition({
+        x: startNodePos.x + deltaX,
+        y: startNodePos.y + deltaY
+      });
+    };
+
+    const handleGlobalMouseUp = (e: MouseEvent) => {
+      setIsDragMode(false);
+      
+      const deltaX = e.clientX - startMousePos.x;
+      const deltaY = e.clientY - startMousePos.y;
+      const finalPosition = {
+        x: startNodePos.x + deltaX,
+        y: startNodePos.y + deltaY
+      };
+      
+      if (onDragEnd) {
+        onDragEnd(exercise.slug, finalPosition);
+      }
+      
+      document.removeEventListener('mousemove', handleGlobalMouseMove);
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleGlobalMouseMove);
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+  }, [enableDrag, draggedPosition, exercise.slug, onDragEnd]);
+
+  // Use dragged position when in drag mode, original position otherwise
+  const currentPosition = isDragMode ? draggedPosition : position;
+
   return (
     <g
-      transform={`translate(${position.x}, ${position.y})`}
+      transform={`translate(${currentPosition.x}, ${currentPosition.y})`}
       className="skill-node"
       style={{ opacity: finalOpacity }}
     >
@@ -114,7 +177,7 @@ export function SkillNode({
           filter: isHighlighted 
             ? `drop-shadow(0 0 12px ${path.color})` 
             : `drop-shadow(0 2px 8px rgba(0,0,0,0.3))`,
-          transition: 'r 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease'
+          transition: isDragMode ? 'none' : 'r 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease'
         }}
       />
       
@@ -145,17 +208,22 @@ export function SkillNode({
         </text>
       )}
       
-      {/* Invisible hover area - stable size to prevent hover bounce */}
+      {/* Interactive area - handles both clicking and dragging */}
       <circle
         r={hoverRadius}
         fill="transparent"
-        style={{ cursor: 'pointer' }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
+        style={{ 
+          cursor: enableDrag ? (isDragMode ? 'grabbing' : 'grab') : 'pointer' 
         }}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        onClick={(e) => {
+          if (!isDragMode) {
+            e.stopPropagation();
+            onClick();
+          }
+        }}
+        onMouseDown={handleMouseDown}
+        onMouseEnter={enableDrag ? undefined : onMouseEnter}
+        onMouseLeave={enableDrag ? undefined : onMouseLeave}
       />
     </g>
   );

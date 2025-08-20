@@ -4,7 +4,9 @@ import ChevronRightIcon from "lucide-react/dist/esm/icons/chevron-right";
 import XIcon from "lucide-react/dist/esm/icons/x";
 import { Button } from './ui/button';
 import { Checkbox } from './ui/checkbox';
+import { Switch } from './ui/switch';
 import { Card } from './ui/card';
+import { Label } from './ui/label';
 import type { Exercise, Path } from '../lib/types';
 
 export interface FilterState {
@@ -14,11 +16,17 @@ export interface FilterState {
   statuses: string[];
 }
 
+export interface SettingsState {
+  enableDragExercises: boolean;
+}
+
 interface FilterBarProps {
   exercises: Exercise[];
   paths: Path[];
   filters: FilterState;
   onFiltersChange: (filters: FilterState) => void;
+  settings: SettingsState;
+  onSettingsChange: (settings: SettingsState) => void;
 }
 
 interface FilterSectionProps {
@@ -120,7 +128,9 @@ export function FilterBar({
   exercises, 
   paths, 
   filters, 
-  onFiltersChange
+  onFiltersChange,
+  settings,
+  onSettingsChange
 }: FilterBarProps) {
 
   // Extract unique values from exercises
@@ -198,6 +208,27 @@ export function FilterBar({
       </div>
 
       <div className="flex-1 overflow-y-auto">
+        {/* Settings Section */}
+        <div className="border-b border-border">
+          <div className="flex items-center justify-between p-3">
+            <span className="font-medium text-sm text-foreground">Settings</span>
+          </div>
+          <div className="px-3 pb-3">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="drag-exercises" className="text-sm text-foreground cursor-pointer">
+                Enable Exercise Dragging
+              </Label>
+              <Switch
+                id="drag-exercises"
+                checked={settings.enableDragExercises}
+                onCheckedChange={(checked) => 
+                  onSettingsChange({ ...settings, enableDragExercises: checked })
+                }
+              />
+            </div>
+          </div>
+        </div>
+
         <FilterSection
           title="Learning Path"
           items={filterOptions.paths}

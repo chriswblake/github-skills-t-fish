@@ -2,7 +2,7 @@ import React, { useState, useMemo, useRef, useCallback } from 'react';
 import { SkillNode } from './SkillNode';
 import { SkillPath } from './SkillPath';
 import { ExerciseDetails } from './ExerciseDetails';
-import { FilterBar, type FilterState } from './FilterBar';
+import { FilterBar, type FilterState, type SettingsState } from './FilterBar';
 import { SearchBar } from './SearchBar';
 import { createSkillTreeData } from '../lib/skill-tree-data';
 import { applyVisibilityToNodes } from '../lib/filter-utils';
@@ -22,6 +22,9 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     difficulties: [],
     statuses: []
   });
+  const [settings, setSettings] = useState<SettingsState>({
+    enableDragExercises: false
+  });
   const [searchTerm, setSearchTerm] = useState('');
 
   // Pan state for drag-to-move functionality
@@ -31,16 +34,53 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Exercise drag positions - store relative positions when dragging is enabled
+  const [exercisePositions, setExercisePositions] = useState<Record<string, { x: number; y: number }>>({});
+
   const skillTreeNodes = useMemo(() => 
     createSkillTreeData(exercises, paths), 
     [exercises, paths]
   );
 
-  // Apply visibility based on filters and search
-  const nodesWithVisibility = useMemo(() => 
-    applyVisibilityToNodes(skillTreeNodes, filters, searchTerm),
-    [skillTreeNodes, filters, searchTerm]
-  );
+  // Apply visibility based on filters and search, and adjust positions for dragging
+  const nodesWithVisibility = useMemo(() => {
+    const visibleNodes = applyVisibilityToNodes(skillTreeNodes, filters, searchTerm);
+    
+    // Apply custom positions when exercise dragging is enabled
+    if (settings.enableDragExercises) {
+      return visibleNodes.map(node => {
+        const customPos = exercisePositions[node.exercise.slug];
+        if (customPos) {
+          // Find the node's last dependency to calculate absolute position
+          const lastDep = node.dependencies.length > 0 
+            ? skillTreeNodes.find(n => n.exercise.slug === node.dependencies[node.dependencies.length - 1])
+            : null;
+          
+          const basePosition = lastDep ? lastDep.position : { x: 0, y: 0 };
+          
+          return {
+            ...node,
+            position: {
+              x: basePosition.x + customPos.x,
+              y: basePosition.y + customPos.y
+            }
+          };
+        }
+        return node;
+      });
+    }
+    
+    return visibleNodes;
+  }, [skillTreeNodes, filters, searchTerm, settings.enableDragExercises, exercisePositions]);
+
+  // Handle settings changes - clear positions when dragging is disabled
+  const handleSettingsChange = useCallback((newSettings: SettingsState) => {
+    if (!newSettings.enableDragExercises && settings.enableDragExercises) {
+      // Dragging was disabled, clear all custom positions
+      setExercisePositions({});
+    }
+    setSettings(newSettings);
+  }, [settings.enableDragExercises]);
 
   const handleNodeClick = (node: SkillTreeNode) => {
     setSelectedNode(node === selectedNode ? null : node);
@@ -50,20 +90,22 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
     setHoveredNode(node);
   };
 
-  // Pan/drag functionality
+  // Pan/drag functionality for tree movement
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    // Only start dragging if clicking on SVG background, not on nodes or other elements
-    const target = e.target as Element;
-    if (target.tagName === 'svg' || target.classList.contains('svg-background')) {
-      setIsDragging(true);
-      setDragStart({ x: e.clientX, y: e.clientY });
-      setPanStart({ x: panOffset.x, y: panOffset.y });
-      e.preventDefault();
+    // Only start tree dragging if exercise dragging is disabled and clicking on SVG background
+    if (!settings.enableDragExercises) {
+      const target = e.target as Element;
+      if (target.tagName === 'svg' || target.classList.contains('svg-background')) {
+        setIsDragging(true);
+        setDragStart({ x: e.clientX, y: e.clientY });
+        setPanStart({ x: panOffset.x, y: panOffset.y });
+        e.preventDefault();
+      }
     }
-  }, [panOffset]);
+  }, [panOffset, settings.enableDragExercises]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isDragging) {
+    if (isDragging && !settings.enableDragExercises) {
       const deltaX = e.clientX - dragStart.x;
       const deltaY = e.clientY - dragStart.y;
       setPanOffset({
@@ -71,7 +113,7 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
         y: panStart.y + deltaY
       });
     }
-  }, [isDragging, dragStart, panStart]);
+  }, [isDragging, dragStart, panStart, settings.enableDragExercises]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -81,6 +123,89 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
   const handleMouseLeave = useCallback(() => {
     setIsDragging(false);
   }, []);
+
+  // Handle exercise node drag functionality
+  const handleExerciseDragEnd = useCallback((exerciseSlug: string, newPosition: { x: number; y: number }) => {
+    if (!settings.enableDragExercises) return;
+
+    // Find the original node and calculate relative position
+    const originalNode = skillTreeNodes.find(n => n.exercise.slug === exerciseSlug);
+    if (!originalNode) return;
+
+    // Find the node's last dependency to calculate relative position
+    const lastDep = originalNode.dependencies.length > 0 
+      ? skillTreeNodes.find(n => n.exercise.slug === originalNode.dependencies[originalNode.dependencies.length - 1])
+      : null;
+    
+    const basePosition = lastDep ? lastDep.position : { x: 0, y: 0 };
+    
+    const relativePosition = {
+      x: newPosition.x - basePosition.x,
+      y: newPosition.y - basePosition.y
+    };
+
+    console.log(`Exercise ${exerciseSlug} moved to relative position:`, relativePosition);
+
+    // Calculate how much the node actually moved
+    const originalAbsolutePos = originalNode.position;
+    const deltaX = newPosition.x - originalAbsolutePos.x;
+    const deltaY = newPosition.y - originalAbsolutePos.y;
+
+    // Update positions in one batch
+    setExercisePositions(prev => {
+      const newPositions = { ...prev };
+      
+      // Update the dragged exercise
+      newPositions[exerciseSlug] = relativePosition;
+      
+      // Find all exercises that depend on this one and move them by the same delta
+      const dependentExercises = skillTreeNodes.filter(node => 
+        node.dependencies.includes(exerciseSlug)
+      );
+
+      dependentExercises.forEach(depNode => {
+        // Calculate the dependent node's current position (considering any custom positions)
+        const currentCustomPos = prev[depNode.exercise.slug];
+        let currentAbsolutePos;
+        
+        if (currentCustomPos) {
+          // If this dependent node has been manually positioned, use its custom position
+          const depLastDep = depNode.dependencies.length > 0 
+            ? skillTreeNodes.find(n => n.exercise.slug === depNode.dependencies[depNode.dependencies.length - 1])
+            : null;
+          const depBasePosition = depLastDep ? depLastDep.position : { x: 0, y: 0 };
+          currentAbsolutePos = {
+            x: depBasePosition.x + currentCustomPos.x,
+            y: depBasePosition.y + currentCustomPos.y
+          };
+        } else {
+          // Use the original position from the tree data
+          currentAbsolutePos = depNode.position;
+        }
+        
+        // Move the dependent by the same amount as the parent
+        const newAbsolutePos = {
+          x: currentAbsolutePos.x + deltaX,
+          y: currentAbsolutePos.y + deltaY
+        };
+
+        // Calculate relative position for the dependent
+        const depLastDep = depNode.dependencies.length > 0 
+          ? skillTreeNodes.find(n => n.exercise.slug === depNode.dependencies[depNode.dependencies.length - 1])
+          : null;
+        const depBasePosition = depLastDep ? depLastDep.position : { x: 0, y: 0 };
+        
+        const newRelativePos = {
+          x: newAbsolutePos.x - depBasePosition.x,
+          y: newAbsolutePos.y - depBasePosition.y
+        };
+
+        newPositions[depNode.exercise.slug] = newRelativePos;
+      });
+
+      return newPositions;
+    });
+  }, [settings.enableDragExercises, skillTreeNodes]);
 
   // Calculate SVG dimensions based on node positions
   const svgDimensions = useMemo(() => {
@@ -107,6 +232,8 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
         paths={paths}
         filters={filters}
         onFiltersChange={setFilters}
+        settings={settings}
+        onSettingsChange={handleSettingsChange}
       />
 
       {/* Search Bar - centered on the page with left margin for filter bar */}
@@ -124,9 +251,9 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
       {/* Main content area with left margin for filter bar and top margin for search */}
       <div 
         ref={containerRef}
-        className="h-full cursor-grab active:cursor-grabbing ml-64"
+        className="h-full ml-64"
         style={{ 
-          cursor: isDragging ? 'grabbing' : 'grab',
+          cursor: isDragging ? 'grabbing' : (settings.enableDragExercises ? 'default' : 'grab'),
           paddingTop: '159px' // Space for header + search bar
         }}
         onMouseMove={handleMouseMove}
@@ -207,6 +334,8 @@ export function SkillsTree({ exercises, paths }: SkillsTreeProps) {
                 onClick={() => handleNodeClick(node)}
                 onMouseEnter={() => handleNodeHover(node)}
                 onMouseLeave={() => handleNodeHover(null)}
+                enableDrag={settings.enableDragExercises}
+                onDragEnd={handleExerciseDragEnd}
               />
             ))}
           </g>
