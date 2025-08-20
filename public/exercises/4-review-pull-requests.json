@@ -1,0 +1,14 @@
+{
+  "slug": "review-pull-requests",
+  "status": "active",
+  "name": "Review pull requests",
+  "icon": "git-pull-request",
+  "description": "Collaborate and work together on GitHub.",
+  "repositoryUrl": "https://github.com/skills-dev/review-pull-requests",
+  "issueUrl": "https://learn.github.com",
+  "pathSlug": "fundamentals",
+  "dependencies": ["introduction-to-github"],
+  "position": { "x": -350, "y": 100 },
+  "products": ["Repository"],
+  "difficulty": "Beginner"
+}

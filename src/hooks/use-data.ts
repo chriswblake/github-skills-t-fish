@@ -11,19 +11,10 @@ export function useExercises() {
       try {
         // List of all exercise files - in a real app this would be dynamic
         const exerciseFiles = [
-          'hello-github', 'git-basics', 'markdown-portfolio', 'github-pages',
-          'pull-requests', 'merge-conflicts', 'github-actions-intro', 'release-based-workflow',
-          'github-issues', 'github-projects', 'code-security', 'dependabot',
-          'codeql', 'github-copilot', 'codespaces', 'branch-protection',
-          'organizations', 'fork-and-clone', 'github-cli', 'secret-scanning',
-          'profile-readme', 'wiki-collaboration', 'repository-templates', 'continuous-integration',
-          'package-publishing', 'docker-container-action', 'javascript-action', 'reusable-workflows',
-          'copilot-chat', 'advanced-security', 'issue-templates', 'github-mobile',
-          'api-integration', 'webhooks', 'github-apps', 'discussions',
-          'license-compliance', 'code-review', 'advanced-git', 'enterprise-administration',
-          'team-management', 'repository-insights', 'copilot-customization', 'deployment-strategies',
-          'monitoring-observability', 'github-sponsors', 'migration-tools', 'project-automation',
-          'community-standards', 'accessibility-testing'
+          '1-introduction-to-github',
+          '2-communicate-using-markdown',
+          '3-github-pages',
+          '4-review-pull-requests'
         ];
 
         const exercisePromises = exerciseFiles.map(async (slug) => {
