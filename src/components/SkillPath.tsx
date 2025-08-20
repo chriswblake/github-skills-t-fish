@@ -8,20 +8,25 @@ interface SkillPathProps {
 }
 
 export function SkillPath({ from, to, color, isHighlighted }: SkillPathProps) {
-  // Create path using only vertical and horizontal lines
+  // Create path using only vertical and horizontal lines, connecting from bottom of 'from' node to top of 'to' node
   const createPath = (start: { x: number; y: number }, end: { x: number; y: number }) => {
-    const dx = end.x - start.x;
-    const dy = end.y - start.y;
+    // Start from bottom of the source node (add 30px offset for node radius)
+    const startPoint = { x: start.x, y: start.y + 30 };
+    // End at top of the target node (subtract 30px offset for node radius)
+    const endPoint = { x: end.x, y: end.y - 30 };
     
-    // Use L-shaped paths for clean, geometric connections
-    if (Math.abs(dx) > Math.abs(dy)) {
-      // Horizontal then vertical
-      const midX = start.x + dx * 0.6;
-      return `M ${start.x} ${start.y} L ${midX} ${start.y} L ${midX} ${end.y} L ${end.x} ${end.y}`;
+    const dx = endPoint.x - startPoint.x;
+    const dy = endPoint.y - startPoint.y;
+    
+    // Always use vertical then horizontal for top-down flow
+    if (dy > 0) {
+      // Moving downward - go down then across
+      const midY = startPoint.y + dy * 0.6;
+      return `M ${startPoint.x} ${startPoint.y} L ${startPoint.x} ${midY} L ${endPoint.x} ${midY} L ${endPoint.x} ${endPoint.y}`;
     } else {
-      // Vertical then horizontal  
-      const midY = start.y + dy * 0.6;
-      return `M ${start.x} ${start.y} L ${start.x} ${midY} L ${end.x} ${midY} L ${end.x} ${end.y}`;
+      // Moving upward - go across then down
+      const midX = startPoint.x + dx * 0.5;
+      return `M ${startPoint.x} ${startPoint.y} L ${midX} ${startPoint.y} L ${midX} ${endPoint.y} L ${endPoint.x} ${endPoint.y}`;
     }
   };
 
